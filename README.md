@@ -9,7 +9,7 @@ A small machine learning web app that predicts the risk of Diabetes, Heart Disea
 ## Datasets
 - Diabetes: [Pima Indians Diabetes Database](https://www.kaggle.com/datasets/uciml/pima-indians-diabetes-database)
 - Heart Disease: [Heart Disease Dataset](https://www.kaggle.com/datasets/johnsmith88/heart-disease-dataset)
-- Parkinson's: <https://archive.ics.uci.edu/dataset/174/parkinsons>
+- Parkinson's: [Oxford Parkinson's Disease Detection Dataset (UCI)](https://archive.ics.uci.edu/dataset/174/parkinsons)
 
 ## What I did
 - Cleaned the data. In the diabetes data, zeros in Glucose, BloodPressure, SkinThickness, Insulin and BMI cannot be real values, so I treated them as missing.
@@ -24,15 +24,25 @@ A small machine learning web app that predicts the risk of Diabetes, Heart Disea
 | Disease | Best model | ROC-AUC |
 |---|---|---|
 | Diabetes | Logistic Regression | 0.81 |
-| Heart Disease | <<MODEL NAME FROM THE APP>> | <<NUMBER>> |
-| Parkinson's | <<MODEL NAME FROM THE APP>> | <<NUMBER>> |
+| Heart Disease | Logistic Regression | 0.87 |
+| Parkinson's | Random Forest | 0.96 |
 
+### Diabetes
 ![Diabetes confusion matrix](assets/diabetes_confusion.png)
 ![Diabetes feature importance](assets/diabetes_importance.png)
 
+### Heart Disease
+![Heart disease confusion matrix](assets/heart_confusion.png)
+![Heart disease feature importance](assets/heart_importance.png)
+
+### Parkinson's
+![Parkinson's confusion matrix](assets/parkinsons_confusion.png)
+![Parkinson's feature importance](assets/parkinsons_importance.png)
+
 ## What I found
-- The simple Logistic Regression model gave the best diabetes score. A more complex model is not always better, especially on a small dataset (768 rows).
-- Handling the data properly mattered more than choosing the model. Fixing the fake zeros in the diabetes data and removing duplicates in the heart data made my results more honest.
+- Simple Logistic Regression gave the best score for both Diabetes and Heart Disease. A more complex model is not always better, especially on small datasets.
+- Random Forest worked best for Parkinson's, but I do not fully trust that 0.96. The same person has many recordings in the data, so the score is probably too optimistic (see Limitations).
+- Handling the data properly mattered a lot. Fixing the fake zeros in the diabetes data and removing duplicates in the heart data made my results more honest.
 - Without removing duplicates, the heart scores would have looked better than they really are, because the same row could be in both train and test.
 - In a health problem, missing a sick person is worse than a false alarm. So I looked at recall, not only accuracy.
 
